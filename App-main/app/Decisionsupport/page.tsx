@@ -77,27 +77,24 @@ export default function DecisionSupportPage() {
 
   return (
     <div
-      className="min-h-screen relative overflow-hidden"
-      style={{
-        backgroundImage: isChatExpanded
-          ? "linear-gradient(135deg, rgba(28,40,25,0.98) 0%, rgba(40,55,40,0.98) 50%, rgba(35,50,35,0.98) 100%)"
-          : "url(/assets/image.jpg), linear-gradient(135deg, rgba(28,40,25,0.75) 0%, rgba(40,55,40,0.75) 50%, rgba(35,50,35,0.75) 100%)",
-        backgroundSize: "cover, cover",
-        backgroundPosition: "center, center",
-        backgroundAttachment: "fixed, fixed",
-      }}
+    className={`backdrop-blur-lg ${
+  isChatExpanded
+    ? // Gradient when expanded (from original style prop)
+      "bg-[linear-gradient(135deg,rgba(28,40,25,0.98)_0%,rgba(40,55,40,0.98)_0%,rgba(35,50,35,0.98)_0%)]"
+    : // Your new requested gradient when not expanded
+      "bg-emerald-800"
+}`}
+      
     >
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-amber-900/10 to-green-900/9 rounded-full blur-xl animate-pulse opacity-20" />
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-gradient-to-tr from-green-900/8 to-amber-900/6 rounded-full blur-xl animate-pulse opacity-15" />
-      </div>
+      
 
       <div className="relative z-10 flex flex-col h-screen">
-        <header className="border-b border-amber-700/20 bg-gradient-to-r from-slate-900/20 to-slate-800/80 backdrop-blur-md sticky top-0 z-20 shadow-lg">
+        <header className=" border border-lime-400/100
+shadow-[0_0_25px_#0f2c2044,inset_0_0_15px_#09161055] bg-emerald-950">
           <div className="max-w-full px-6 md:px-8 py-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-amber-600 to-amber-700 shadow-md border border-amber-500/50">
+                <div className="p-2 rounded-lg ">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 30 30">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -108,7 +105,7 @@ export default function DecisionSupportPage() {
                 </div>
               </div>
 
-              <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-emerald-950/60 border border-emerald-700/60 rounded-lg">
+              <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-emerald-950/60 border border-[#1FA97A]/100 rounded-lg">
                 <span className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse" />
                 <span className="text-sm text-emerald-300 font-medium">System Active</span>
               </div>
@@ -129,9 +126,11 @@ export default function DecisionSupportPage() {
                 isChatExpanded ? "lg:col-span-1" : "lg:col-span-3"
               }`}
             >
-              <div className="flex-1 rounded-xl bg-slate-900/85 backdrop-blur-sm border border-amber-700/30 flex flex-col overflow-hidden shadow-2xl hover:shadow-2xl transition-all duration-300">
+              <div className="flex-1 rounded-xl  bg-[linear-gradient(135deg,#071a16_0%,#0c2d25_50%,#061411_100%)] 
+
+ z-30 p-0 border-b border-[#1FA97A]/100 backdrop-blur-sm  flex flex-col overflow-hidden shadow-2xl hover:shadow-8xl tran">
                 {/* Chat Header */}
-                <div className="flex items-center justify-between gap-3 p-5 border-b border-amber-700/20 bg-gradient-to-r from-slate-800/60 to-slate-700/60">
+                <div className="flex items-center justify-between gap-3 p-5 ">
                   <div>
                     <h2 className="text-lg font-bold text-amber-100">Command Assistant</h2>
                     <p className="text-xs text-amber-300/60 mt-1">Real-time tactical support</p>
@@ -167,7 +166,8 @@ export default function DecisionSupportPage() {
                 {/* Messages Container */}
                 <div
                   ref={scrollRef}
-                  className="flex-1 overflow-y-auto p-5 space-y-4 scroll-smooth bg-gradient-to-b from-emerald-800 to-slate-950/90"
+                  className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth bg-black/50 border border-[#1FA97A]/100
+ rounded-xl p-0 transition-all duration-300 overflow-hidden flex flex-col group"
                 >
                   {messages.map((msg) => (
                     <div
@@ -190,7 +190,7 @@ export default function DecisionSupportPage() {
                         <div
                           className={`px-4 py-3 rounded-xl text-sm font-medium break-words shadow-md transition-all duration-200 hover:shadow-lg border ${
                             msg.sender === "human"
-                              ? "bg-gradient-to-br from-blue-500 to-blue-500 text-white rounded-br-none border-amber-500/50"
+                              ? "bg-blue-950 text-white rounded-br-none border-amber-500/50"
                               : "bg-slate-800 text-amber-100 rounded-bl-none border-slate-700/60"
                           }`}
                         >
@@ -202,7 +202,7 @@ export default function DecisionSupportPage() {
                 </div>
 
                 {/* Input Area */}
-                <div className="border-t border-amber-700/20 bg-slate-900/80 p-4 space-y-3">
+                <div className="border-t border-amber-700/20 bg-emerald-950 p-4 space-y-3">
                   <div className="flex gap-3 items-end">
                     <textarea
                       ref={textareaRef}
@@ -216,7 +216,7 @@ export default function DecisionSupportPage() {
                           handleSend()
                         }
                       }}
-                      className="flex-1 resize-none rounded-lg px-4 py-3 bg-slate-800 text-amber-100 placeholder-amber-300/40 border border-amber-700/40 focus:border-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-600/50 transition-all duration-200 min-h-12 max-h-24 overflow-y-auto"
+                      className="flex-1 resize-none rounded-lg px-5 py-3 bg-emerald-950 text-amber-100 placeholder-amber-300/40 border border-amber-700/ focus:border-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-600/50 transition-all duration-200 min-h-12 max-h-24 overflow-y-auto"
                     />
 
                     <button
@@ -248,8 +248,10 @@ export default function DecisionSupportPage() {
             {/* Right Column: Analytics & Insights */}
             {!isChatExpanded && (
               <div className="lg:col-span-2 flex flex-col gap-6 min-h-0">
-                <div className="flex-1 rounded-xl bg-gradient-to-b from-emerald-800 to-slate-950/90 backdrop-blur-sm border border-emerald-700/10 shadow-2xl hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col group">
-                  <div className="flex items-center justify-between gap-3 p-5 border-b border-emerald-700/20 bg-gradient-to-r from-slate-800/60 to-slate-700/60 group-hover:from-slate-800/80 group-hover:to-slate-700/80 transition-colors">
+                <div className="flex-1 rounded-xl relative z-10 bg-black/50 border border-[#1FA97A]/100
+ rounded-xl p-0 transition-all duration-300 overflow-hidden flex flex-col group">
+                  <div className="flex items-center justify-between gap-3 p-5 border-b border-emerald-700/40 bg-[linear-gradient(135deg,#071a16_0%,#0c2d25_50%,#061411_100%)]
+ from-slate-100 text-shadow-slate-950 group-hover:from-slate-800/80 group-hover:to-slate-700/80 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="p-2.5 rounded-lg bg-emerald-900/60 text-emerald-400 border border-emerald-700/40">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,8 +290,10 @@ export default function DecisionSupportPage() {
                   </div>
                 </div>
 
-                <div className="flex-1 rounded-xl bg-gradient-to-b from-emerald-800 to-slate-950/90 backdrop-blur-sm border border-amber-700/30 shadow-2xl hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col group">
-                  <div className="flex items-center justify-between gap-3 p-5 border-b border-amber-700/20 bg-gradient-to-r from-slate-800/60 to-slate-700/60 group-hover:from-slate-800/80 group-hover:to-slate-700/80 transition-colors">
+                <div className="flex-1 rounded-xl flex-1 rounded-xl relative z-10 bg-black/50 border border-[#1FA97A]/100
+l p-0 transition-all duration-300 overflow-hidden flex flex-col group duration-300 overflow-hidden flex flex-col group">
+                  <div className="flex items-center justify-between gap-3 p-5 border-b border-amber-700/20 bg-[linear-gradient(135deg,#071a16_0%,#0c2d25_50%,#061411_100%)]
+ from-slate-800/60 to-slate-700/60 group-hover:from-slate-800/80 group-hover:to-slate-700/80 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="p-2.5 rounded-lg bg-amber-900/60 text-amber-400 border border-amber-700/40">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
